@@ -16,13 +16,17 @@ app.use("/transactions", transactions);
 //connection
 
 const start = async()=>{
-    await connectDb(process.env.MONGO_URI)
-    console.log('Connected to Db');
-    app.listen(port, ()=>{
-        console.log('Listening on port', port);
-    })
+    try {
+          await connectDb(process.env.MONGO_URI);
+          console.log("Connected to Db");
+          app.listen(port, () => {
+            console.log("Listening on port", port);
+          });
+        
+    } catch (error) {
+        console.log(error);   
+    }
 }
-
 start()
 
 
