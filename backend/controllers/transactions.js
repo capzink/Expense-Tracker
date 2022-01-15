@@ -11,11 +11,9 @@ const getAllTransaction = async(req,res, next)=>{
     }
     
 }
-
 const getTransaction = async (req, res, next) => {
   res.send("delete a transaction");
 };
-
 const createTransaction = async (req, res, next) => {
     const {text,amount} = req.body
     try {
@@ -35,7 +33,18 @@ const createTransaction = async (req, res, next) => {
 };
 
 const deleteTransaction = async (req, res, next) => {
-  res.send("delete a transaction");
+  try {
+      const {id:TransId}=req.params
+      const transaction = await Transaction.findByIdAndRemove({_id:TransId})
+       res.status(200).json({msg:'element deleted' }); 
+
+      if(!transaction){
+        res.status(400).json({msg:'no transaction found with this Id'})
+      }
+  } catch (error) {
+      return res.status(500).json({ error: "server error" });
+      
+  }
 };
 
 
