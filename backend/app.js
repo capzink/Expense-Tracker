@@ -7,6 +7,9 @@ const transactions = require('./router/transactions')
 const app = express()
 const port = process.env.port || 3001
 app.use(express.json())
+if(process.env.NODE_ENV==='development'){
+  app.use(morgan('dev'))
+}
 
 //routes
 app.use("/transactions", transactions);
