@@ -1,5 +1,6 @@
 import React,{useContext} from 'react'
 import { GlobalContext } from "../Context/GlobalState";
+import { commasinNumbers } from "../utils/format";
 
 
  const Transaction = ({transaction}) => {
@@ -7,11 +8,18 @@ import { GlobalContext } from "../Context/GlobalState";
 
      const sign = transaction.amount < 0 ? '-': '+'
     return (
-        <li className={transaction.amount < 0 ? 'minus': 'plus'}>
-          {transaction.text} <span>{`${sign}$${Math.abs(transaction.amount)}`}</span>
-          <button onClick={()=>{deleteTransaction(transaction._id)}} className="delete-btn">x</button>
-        </li>
-      
+      <li className={transaction.amount < 0 ? "minus" : "plus"}>
+        {transaction.text}{" "}
+        <span>{`${sign}$${commasinNumbers(Math.abs(transaction.amount))}`}</span>
+        <button
+          onClick={() => {
+            deleteTransaction(transaction._id);
+          }}
+          className="delete-btn"
+        >
+          x
+        </button>
+      </li>
     );
 }
 

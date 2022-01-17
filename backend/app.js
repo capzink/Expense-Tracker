@@ -1,3 +1,4 @@
+const path = require('path')
 require('dotenv').config()
 const morgan = require('morgan')
 const express = require('express')
@@ -13,6 +14,11 @@ if(process.env.NODE_ENV==='development'){
 
 //routes
 app.use("/transactions", transactions);
+if(process.env.NODE_ENV==='production'){
+  app.use(express.static('../frontend/build'))
+  app.get('*',(req,res)=>res.sendFile(path.resolve(__diranme,'frontend','build','index.html' )))
+
+}
 
 
 //connection
